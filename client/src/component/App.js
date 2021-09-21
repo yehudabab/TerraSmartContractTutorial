@@ -61,6 +61,9 @@ export default class App extends React.Component {
               console.log('unknown post!' + postJson.type)
           }
         }
+      } else {
+        console.log(i);
+        window.alert('execution failed!');
       }
     });
 
@@ -120,7 +123,11 @@ export default class App extends React.Component {
             this.contract_address,
             {deposit: {}},
             { uusd: parseFloat(extra) * (10 ** 6) });
-          console.log(this.extension.post({msgs: [k]}));
+          this.lcd.tx.estimateFee(this.wallet_address, [k], { gasPrices: { uusd: 0.15 } }).then(ef => {
+            console.log(this.extension.post({msgs: [k], fee: ef}));
+          })
+
+
         } else {
           window.alert('not enough to deposit that amount!');
         }
@@ -131,7 +138,9 @@ export default class App extends React.Component {
             this.wallet_address,
             this.contract_address,
             {withdraw: {amount: parseFloat(extra) * (10 ** 6)}});
-          console.log(this.extension.post({msgs: [k]}));
+          this.lcd.tx.estimateFee(this.wallet_address, [k], { gasPrices: { uusd: 0.15 } }).then(ef => {
+            console.log(this.extension.post({msgs: [k], fee: ef}));
+          })
         } else {
           window.alert('not enough to withdraw that amount!');
         }
