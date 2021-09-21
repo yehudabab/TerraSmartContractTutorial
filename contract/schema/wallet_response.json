@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WalletResponse",
+  "type": "object",
+  "required": [
+    "balance",
+    "global_balance",
+    "history",
+    "str_msg"
+  ],
+  "properties": {
+    "balance": {
+      "type": "integer",
+      "format": "uint64",
+      "minimum": 0.0
+    },
+    "global_balance": {
+      "type": "integer",
+      "format": "uint64",
+      "minimum": 0.0
+    },
+    "history": {
+      "type": "integer",
+      "format": "uint64",
+      "minimum": 0.0
+    },
+    "str_msg": {
+      "type": "string"
+    }
+  }
+}
